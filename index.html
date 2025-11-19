@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    margin: 0;
+    background: black;
+  }
+
+  video {
+    width: 100vw;
+    height: auto;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+</style>
+</head>
+<body>
+
+<video id="anim" playsinline muted>
+  <source src="YOURFILE.mp4" type="video/mp4">
+</video>
+
+<script>
+const video = document.getElementById('anim');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      video.play();
+      video.style.opacity = 1;
+    } else {
+      video.pause();
+      video.currentTime = 0;
+      video.style.opacity = 0;
+    }
+  });
+}, { threshold: 0.5 });
+
+observer.observe(video);
+</script>
+
+</body>
+</html>
